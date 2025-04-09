@@ -25,25 +25,20 @@ Você pode me perguntar qualquer coisa diretamente ou usar o comando /ai em chat
 Como posso ajudar você hoje? 😊""")
 
     def _get_answer(self, record, body, values, command=None):
+        """Override to handle custom AI responses"""
         # Se for uma mensagem direta para o K.A.R.E.N.
         if record._name == 'mail.channel' and self._is_direct_message_to_odoobot(record, values):
-            try:
-                # Usar o mesmo mecanismo do comando /ai, mas sem necessidade do comando
-                if self.env.user.odoogpt_chat_method == 'completion':
-                    response = self.env['odoogpt.openai.utils'].completition_create(
-                        prompt=self._build_prompt_completion(body)
-                    )
-                elif self.env.user.odoogpt_chat_method == 'chat-completion':
-                    response = self.env['odoogpt.openai.utils'].chat_completion_create(
-                        messages=self._build_prompt_chat_completion(body)
-                    )
-                else:
-                    return super()._get_answer(record, body, values, command)
-                
-                return plaintext2html(response)
-            except Exception as e:
-                return _('Desculpe, ocorreu um erro ao processar sua mensagem: %s') % str(e)
-        
+            # Usar o mesmo mecanismo do comando /ai, mas sem necessidade do comando
+            if self.env.user.odoogpt_chat_method == 'completion':
+                response = self.env['odoogpt.openai.utils'].completition_create(
+                    prompt=self._build_prompt_completion(body)
+                )
+            else:  # default to chat-completion
+                response = self.env['odoogpt.openai.utils'].chat_completion_create(
+                    messages=self._build_prompt_chat_completion(body)
+                )
+            
+            return plaintext2html(response)
         return super()._get_answer(record, body, values, command)
 
     def _is_direct_message_to_odoobot(self, record, values):
@@ -58,11 +53,7 @@ Como posso ajudar você hoje? 😊""")
 
     def _build_prompt_completion(self, prompt):
         """Constrói o prompt para a API de Completion"""
-        return '{0}{1}{2}'.format(
-            'No Sistema: ',
-            prompt,
-            self.env.user.odoogpt_openai_prompt_suffix or ''
-        )
+        return f"No Sistema: {prompt}{self.env.user.odoogpt_openai_prompt_suffix or ''}"
 
     def _build_prompt_chat_completion(self, prompt):
         """Constrói o prompt para a API de Chat Completion"""
@@ -73,5 +64,5 @@ sempre mantendo um tom profissional mas amigável."""
 
         return [
             {'role': 'system', 'content': system_message},
-            {'role': 'user', 'content': prompt},
+            {'role': 'user', 'content': prompt}
         ] 
