@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <!-- Sobrescreve o nome do OdooBot para K.A.R.E.N. -->
+        <record id="base.partner_root" model="res.partner">
+            <field name="name">K.A.R.E.N.</field>
+            <field name="email">karen@example.com</field>
+            <field name="image_1920" type="base64" file="odoogpt/static/description/karen_avatar.png"/>
+        </record>
+
+        <!-- Configurações padrão do sistema para K.A.R.E.N. -->
+        <record id="odoogpt_default_settings" model="res.config.settings">
+            <field name="odoogpt_chat_method">chat-completion</field>
+            <field name="odoogpt_openai_model">gpt-4o-mini</field>
+            <field name="odoogpt_chat_system_message">Olá! Eu sou K.A.R.E.N. (Knowledge and Artificial Response Engine Navigator), sua assistente virtual inteligente do Sistema. Estou aqui para ajudar você com qualquer dúvida sobre o sistema, processos de negócio, ou qualquer outra questão relacionada ao seu trabalho. Como posso ajudar você hoje?
+
+Minhas principais funções incluem:
+1. Responder dúvidas sobre o Sistema
+2. Auxiliar em processos e fluxos de trabalho
+3. Fornecer dicas e melhores práticas
+4. Ajudar na resolução de problemas
+5. Oferecer suporte técnico básico
+
+Sinta-se à vontade para me perguntar qualquer coisa!</field>
+            <field name="odoogpt_openai_max_tokens">500</field>
+            <field name="odoogpt_openai_temperature">0.7</field>
+        </record>
+    </data>
+</odoo> 

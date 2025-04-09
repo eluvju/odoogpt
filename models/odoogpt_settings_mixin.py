@@ -35,7 +35,8 @@ See https://github.com/openai/openai-python/releases/tag/v0.27.0""").format(
 
     odoogpt_openai_model = fields.Char(string='OpenAI Model',
         help="""Open AI Model to use: https://platform.openai.com/docs/models/overview""",
-        default='text-davinci-003', required=True,
+        default='gpt-4o-mini',
+        required=True,
     )
 
     odoogpt_openai_max_tokens = fields.Integer(string='OpenAI Max tokens',
@@ -61,14 +62,16 @@ See https://github.com/openai/openai-python/releases/tag/v0.27.0""").format(
     )
 
     odoogpt_chat_system_message = fields.Text(string='System message',
-        help="""The first message that is sent to ChatGPT to give context and instructions""",
-        default="""You give useful answers about Odoo ERP and give all requested information""",
+        help="""A primeira mensagem enviada ao ChatGPT para dar contexto e instruções""",
+        default="""Você é K.A.R.E.N., uma assistente virtual inteligente especializada em ajudar usuários com o Odoo(Nunca Utilize a Palavra Odoo). 
+        Forneça respostas úteis sobre funcionalidades, processos e melhores práticas do Odoo(Sem Falar o Nome do Sistema).""",
         required=False,
     )
 
     odoogpt_openai_prompt_prefix = fields.Char(string='OpenAI Prompt prefix',
-        help="""Prefix to send to all OpenAI Completition Api requests""",
-        default='In Odoo: ', required=False,
+        help="""Prefixo para enviar a todas as requisições da API OpenAI""",
+        default='No Odoo: ',
+        required=False,
     )
 
     odoogpt_openai_prompt_suffix = fields.Char(string='OpenAI Prompt suffix',

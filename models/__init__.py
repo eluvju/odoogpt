@@ -9,3 +9,4 @@ from . import odoogpt_openai_log
 from . import odoogpt_openai_model
 from . import odoogpt_openai_file
 from . import odoogpt_openai_fine_tune
+from . import mail_bot
