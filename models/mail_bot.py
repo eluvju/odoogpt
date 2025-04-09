@@ -2,8 +2,10 @@
 from odoo import models, _
 from odoo.tools import html2plaintext, plaintext2html
 
-class MailBot(models.Model):
+class MailBot(models.AbstractModel):
     _inherit = 'mail.bot'
+    _name = 'mail.bot'
+    _description = 'K.A.R.E.N. Bot'
 
     def _get_welcome_message(self):
         """Sobrescreve a mensagem de boas-vindas padrão"""
