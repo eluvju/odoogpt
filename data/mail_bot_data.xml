@@ -5,7 +5,7 @@
         <record id="base.partner_root" model="res.partner">
             <field name="name">K.A.R.E.N.</field>
             <field name="email">karen@example.com</field>
-            <field name="image_1920" type="base64" file="odoogpt/static/description/karen_avatar.png"/>
+            <field name="image_1920" type="base64" file="odoogpt/static/description/karen_avatar.jpg"/>
         </record>
 
         <!-- Configurações padrão do sistema para K.A.R.E.N. -->
