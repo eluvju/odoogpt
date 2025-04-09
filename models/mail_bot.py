@@ -29,16 +29,19 @@ Como posso ajudar você hoje? 😊""")
         # Se for uma mensagem direta para o K.A.R.E.N.
         if record._name == 'mail.channel' and self._is_direct_message_to_odoobot(record, values):
             # Usar o mesmo mecanismo do comando /ai, mas sem necessidade do comando
-            if self.env.user.odoogpt_chat_method == 'completion':
-                response = self.env['odoogpt.openai.utils'].completition_create(
-                    prompt=self._build_prompt_completion(body)
-                )
-            else:  # default to chat-completion
-                response = self.env['odoogpt.openai.utils'].chat_completion_create(
-                    messages=self._build_prompt_chat_completion(body)
-                )
-            
-            return plaintext2html(response)
+            try:
+                if self.env.user.odoogpt_chat_method == 'completion':
+                    response = self.env['odoogpt.openai.utils'].completition_create(
+                        prompt=self._build_prompt_completion(body)
+                    )
+                else:  # default to chat-completion
+                    response = self.env['odoogpt.openai.utils'].chat_completion_create(
+                        messages=self._build_prompt_chat_completion(body)
+                    )
+                
+                return plaintext2html(response)
+            except Exception as e:
+                return _('Desculpe, ocorreu um erro ao processar sua solicitação. Por favor, tente novamente mais tarde. Erro: %s') % str(e)
         return super()._get_answer(record, body, values, command)
 
     def _is_direct_message_to_odoobot(self, record, values):
