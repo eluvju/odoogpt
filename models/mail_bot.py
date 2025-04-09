@@ -42,14 +42,14 @@ Como posso ajudar você hoje? 😊""")
         return super()._get_answer(record, body, values, command)
 
     def _is_direct_message_to_odoobot(self, record, values):
-        """Verifica se é uma mensagem direta para o OdooBot"""
+        """Verifica se é uma mensagem direta para o K.A.R.E.N."""
         if record._name != 'mail.channel':
             return False
         
-        # Verifica se é um chat direto com o OdooBot
+        # Verifica se é um chat direto com o K.A.R.E.N.
         odoobot_id = self.env['ir.model.data']._xmlid_to_res_id("base.partner_root")
         channel_members = record.channel_partner_ids.ids
-        return len(channel_members) == 2 and odoobot_id in channel_members
+        return len(channel_members) == 2 and odoobot_id in channel_members and record.channel_type == 'chat'
 
     def _build_prompt_completion(self, prompt):
         """Constrói o prompt para a API de Completion"""
